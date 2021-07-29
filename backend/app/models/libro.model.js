@@ -1,7 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
   
-  
-
   const libro = sequelize.define("libro", {
     
     autor: {

@@ -20,4 +20,14 @@ db.sequelize = sequelize;
 
 
 db.libro = require("./libro.model.js")(sequelize, Sequelize);
+db.persona = require("./persona.model.js")(sequelize, Sequelize);
+db.prestamo = require("./prestamo.model.js")(sequelize, Sequelize);
+
+const Prestamo= db.prestamo
+const Libro= db.libro
+const Persona= db.persona
+
+Prestamo.belongsTo(Libro,{foreignKey:"id_libro_libros"})
+Prestamo.belongsTo(Persona,{foreignKey:"id_persona_personas"})
+
 module.exports = db;
