@@ -4,15 +4,15 @@ module.exports = (sequelize, Sequelize) => {
       id_persona_personas: {
         type: Sequelize.INTEGER,
         references: {
-           model: 'personas', // 'autos' refers to table name
-           key: 'id', // 'id' refers to column name in marca table
+           model: 'personas', 
+           key: 'id', 
         }
       },
       id_libro_libros: {
         type: Sequelize.INTEGER,
         references: {
-           model: 'libros', // 'autos' refers to table name
-           key: 'id', // 'id' refers to column name in marca table
+           model: 'libros', 
+           key: 'id', 
         }
       },
       fecha: {

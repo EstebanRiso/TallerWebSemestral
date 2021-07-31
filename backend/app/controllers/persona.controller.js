@@ -1,24 +1,24 @@
 const db = require("../models");
-const Libro = db.libro;
+const Persona= db.persona;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
 
-  const libro = {
-    autor: req.body.autor,
-    titulo: req.body.titulo,
-    anio : req.body.anio
+  const persona = {
+    nombre: req.body.nombre,
+    apellido_paterno: req.body.apellido_paterno,
+    apellido_materno: req.body.apellido_materno
   };
 
 
-  Libro.create(libro) 
+  Persona.create(persona) 
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Error al registrar libro."
+          err.message || "Error al registrar persona."
       });
     });
 };
@@ -26,14 +26,14 @@ exports.create = (req, res) => {
 
   exports.findAll = (req, res) => {
 
-    Libro.findAll()
+    Persona.findAll()
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Error al retirar libros."
+            err.message || "Error al retirar personas."
         });
       });
   };
@@ -42,23 +42,23 @@ exports.create = (req, res) => {
   exports.update = (req, res) => {
     const id = req.params.id;
 
-    Libro.update(req.body, {
+    Persona.update(req.body, {
       where: { id: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "libro fue actualizado satisfactoriamente."
+            message: "persona fue actualizado satisfactoriamente."
           });
         } else {
           res.send({
-            message: `error al actualizar libro con id=${id}. tal vez libro no fue encontrado  o req.body esta vacío!`
+            message: `error al actualizar persona con id=${id}. tal vez persona no fue encontrado  o req.body esta vacío!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "error al acutalizar libro con id=" + id
+          message: "error al acutalizar persona con id=" + id
         });
       });
   };
@@ -66,23 +66,23 @@ exports.create = (req, res) => {
   exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Libro.destroy({
+    Persona.destroy({
       where: { id: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "libro fue eliminado satisfactoriamente!"
+            message: "persona fue eliminado satisfactoriamente!"
           });
         } else {
           res.send({
-            message: `no se pudo eliminar libro con id=${id}. tal vez libro no fue encontrado!`
+            message: `no se pudo eliminar persona con id=${id}. tal vez esta persona no fue encontrado!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "no se pudo borrar libro con id=" + id
+          message: "no se pudo borrar persona con id=" + id
         });
       });
   };
