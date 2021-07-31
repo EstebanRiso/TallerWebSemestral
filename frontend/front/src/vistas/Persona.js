@@ -196,7 +196,7 @@ export default function Persona() {
 
         axios
             .get(
-                `http://192.99.144.232:8080/api/usuario`
+                `http://localhost:8081/api/usuario`
             )
             .then(
                 (response) => {
@@ -222,7 +222,7 @@ export default function Persona() {
       if(accion=="Guardar"){
         axios
         .post(
-            `http://192.99.144.232:8080/api/usuario`, {
+            `http://localhost:8081/api/usuario`, {
             usuario: usuario,
             password: password,
         }
@@ -256,7 +256,7 @@ export default function Persona() {
       if(accion=="Modificar"){
         axios
         .put(
-            `http://192.99.144.232:8080/api/usuario/${id}`,{
+            `http://localhost:8081/api/usuario/${id}`,{
             usuario: usuario,
             password: password,
         }
@@ -285,7 +285,7 @@ export default function Persona() {
     const Eliminar = () =>{
         axios
         .delete(
-            `http://192.99.144.232:8080/api/usuario/${id}`
+            `http://localhost:8081/api/usuario/${id}`
         )
         .then(
             (response) => {
