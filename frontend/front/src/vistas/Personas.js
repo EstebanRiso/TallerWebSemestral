@@ -13,14 +13,13 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios'
-import MaterialDatatable from "material-datatable";
+
 import Swal from 'sweetalert2';
 
 
 
-
-
   
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -44,15 +43,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Libros(){
+export default function Personas(){
     
     const [data, setData] = useState([]);
     const [accion,setAccion] = useState("Guardar")
     const [id,setId] = useState(null)
 
-    const [autor, setAutor] = useState("");
-    const [titulo, setTitulo] = useState("");
-    const [anio, setAnio]= useState(0); 
+    const [nombre, setNombre] = useState("");
+    const [apellido_paterno, setApellidoP] = useState("");
+    const [apellido_materno, setApellidoM]= useState(""); 
    
 
     useEffect(() => {
@@ -60,22 +59,23 @@ export default function Libros(){
         Listar();
       },[]);
 
+
     const classes = useStyles();
 
 
     const columns = [
 
         {
-            name: 'Autor',
-            field: 'autor',
+            name: 'Nombre',
+            field: 'nombre',
         },
         {
-            name: 'Titulo',
-            field: 'titulo',
+            name: 'Apellido_Paterno',
+            field: 'apellido_paterno',
         },
         {
-            name: 'Anio',
-            field: 'anio'
+            name: 'Apellido_Materno',
+            field: 'apellido_materno'
         }
     ];
 
@@ -83,7 +83,7 @@ export default function Libros(){
     const columns2 = [
 
         {
-            name: "Seleccionar libro",
+            name: "Seleccionar Persona",
             options: {
               headerNoWrap: true,
               customBodyRender: (item) => {
@@ -92,9 +92,9 @@ export default function Libros(){
                     variant="contained"
                     className="btn-block"
                     onClick={() =>{
-                        setAutor(item.nombre)
-                        setTitulo(item.apellido_paterno)
-                        setAnio(item.apellido_materno)
+                        setNombre(item.nombre)
+                        setApellidoP(item.apellido_paterno)
+                        setApellidoM(item.apellido_materno)
                         setId(item.id)
                         setAccion("Modificar")
                     }}
@@ -133,7 +133,7 @@ export default function Libros(){
 
         axios
             .get(
-                `http://localhost:8081/api/libro`
+                `http://localhost:8081/api/persona`
             )
             .then(
                 (response) => {
@@ -156,10 +156,10 @@ export default function Libros(){
       if(accion=="Guardar"){
         axios
         .post(
-            `http://localhost:8081/api/libro`, {
-                autor: autor,
-                titulo: titulo,
-                anio: anio,
+            `http://localhost:8081/api/persona`, {
+            nombre: nombre,
+            apellido_paterno: apellido_paterno,
+            apellido_materno: apellido_materno
         }
         )
         .then(
@@ -191,10 +191,10 @@ export default function Libros(){
       if(accion=="Modificar"){
         axios
         .put(
-            `http://localhost:8081/api/libro/${id}`,{
-            autor: autor,
-            titulo: titulo,
-            anio: anio,
+            `http://localhost:8081/api/persona/${id}`,{
+            nombre: nombre,
+            apellido_paterno: apellido_paterno,
+            apellido_materno: apellido_materno,
         }
         )
         .then(
@@ -221,7 +221,7 @@ export default function Libros(){
     const Eliminar = () =>{
         axios
         .delete(
-            `http://localhost:8081/api/libro/${id}`
+            `http://localhost:8081/api/persona/${id}`
         )
         .then(
             (response) => {
@@ -244,12 +244,13 @@ export default function Libros(){
     }
 
     const Limpiar = () =>{
-        setAutor("");
-        setTitulo("");
-        setAnio("");
+        setNombre("");
+        setApellidoM("");
+        setApellidoP("");
     }
 
 
+    
 
     return(
         <Container>
@@ -257,17 +258,17 @@ export default function Libros(){
                         <LockOutlinedIcon />
                 </Avatar>
                     <Typography component="h1" variant="h5">
-                        Login Libro
+                        Login Persona
                     </Typography>
                     <form className={classes.form} noValidate>
 
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
-                                     value={autor}
+                                     value={nombre}
                                     onChange={(evt) => {
                                     console.log(evt)
-                                    setAutor(evt.target.value)
+                                    setNombre(evt.target.value)
                                     }}
                                      autoComplete="fname"
                                      name="firstName"
@@ -275,38 +276,38 @@ export default function Libros(){
                                     required
                                     fullWidth
                                     id="name"
-                                    label="autor"
+                                    label="nombre persona"
                                     autoFocus
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
-                                    value={titulo}
+                                    value={apellido_paterno}
                                     onChange={(evt) => {
 
-                                    setTitulo(evt.target.value)
+                                    setApellidoP(evt.target.value)
                                     }}
                                 variant="outlined"
                                 required
                                 fullWidth
                                 id="lastName"
-                                label="titulo"
+                                label="apellido paterno"
                                 name="lastName"
                                 autoComplete="lname"
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
-                                    value={anio}
+                                    value={apellido_materno}
                                     onChange={(evt) => {
 
-                                    setAnio(evt.target.value)
+                                    setApellidoM(evt.target.value)
                                     }}
                                 variant="outlined"
                                 required
                                 fullWidth
                                 id="lastName"
-                                label="año"
+                                label="apellido materno"
                                 name="lastName"
                                 autoComplete="lname"
                                 />
