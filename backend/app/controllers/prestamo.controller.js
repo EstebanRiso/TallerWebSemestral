@@ -24,9 +24,9 @@ exports.create=(req,res)=>{
         res.send(data);
       })
       .catch(err => {
-        res.status(404).send({
+        res.status(404 || 500).send({
           message:
-            err.message || "Error al Registrar Prestamo, petición no encontrada"
+            err.message || "Error al Registrar Prestamo , petición no encontrada"
         });
       });
 
