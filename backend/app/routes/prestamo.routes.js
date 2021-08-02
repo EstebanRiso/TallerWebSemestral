@@ -7,5 +7,6 @@ module.exports = app => {
     router.get("/", prestamo.ConsultaTodos);
     router.get("/:id", prestamo.ConsultaPersona);
 
+    app.use("/api/prestamo", router);
   };
   

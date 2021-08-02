@@ -9,12 +9,11 @@ const Op = db.Sequelize.Op;
 exports.create=(req,res)=>{
 
 
-    var fechaDate= new Date(req.body.fecha);
 
     const prestamo = {
         id_persona_personas: req.body.id_persona_personas,
         id_libro_libros: req.body.id_libro_libros,
-        fecha: fechaDate
+        fecha: req.body.fecha
       };
     
     
@@ -25,9 +24,9 @@ exports.create=(req,res)=>{
         res.send(data);
       })
       .catch(err => {
-        res.status(500).send({
+        res.status(404).send({
           message:
-            err.message || "Error al Registrar Prestamo."
+            err.message || "Error al Registrar Prestamo, petición no encontrada"
         });
       });
 
