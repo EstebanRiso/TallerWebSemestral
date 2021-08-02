@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios'
+import MaterialDatatable from "material-datatable";
 
 import Swal from 'sweetalert2';
 
@@ -251,6 +252,7 @@ export default function Personas(props){
 
 
     
+    if(props.id===1){
 
     return(
         <Container>
@@ -327,10 +329,170 @@ export default function Personas(props){
 
                     </form>
         </Container>
-                
-
-
-
 
     )
+  }
+  if(props.id===2){
+
+    return(
+        <Container>
+                <form className={classes.form} noValidate>
+                  <Grid container justify="flex-end">
+                        <MaterialDatatable
+                            title={"Lista de Usuarios"}
+                            data={data}
+                            columns={columns}
+                            options={options}
+                        />
+                    
+                    </Grid>
+        
+                    </form>
+        </Container>
+    )
+  }
+  if(props.id===3){
+
+    return(
+        <Container>
+             <Avatar className={classes.avatar}>
+                    <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Eliminar Usuario
+                </Typography>
+           <form className={classes.form} noValidate>
+
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                value={nombre}
+                                onChange={(evt) => {
+                                    console.log(evt)
+                                    setNombre(evt.target.value)
+                                }}
+                                autoComplete="fname"
+                                name="firstName"
+                                variant="outlined"
+                                required
+                                fullWidth
+                                id="name"
+                                label="Nombre"
+                                autoFocus
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                value={password}
+                                onChange={(evt) => {
+
+                                    setPassword(evt.target.value)
+                                }}
+                                variant="outlined"
+                                required
+                                fullWidth
+                                id="lastName"
+                                label="Contraseña"
+                                name="lastName"
+                                autoComplete="lname"
+                            />
+                        </Grid>
+
+                    </Grid>
+                     
+                    <Button
+                        fullWidth
+                        variant="contained"
+                        color="secondary"
+                        className={classes.submit}
+                        onClick={() => Eliminar()}
+                    >
+                        Eliminar
+                    </Button>
+        
+          </form>
+        </Container>
+
+    )
+  }
+  if(props.id===4){
+
+    return(
+        <Container>
+                <Avatar className={classes.avatar}>
+                        <LockOutlinedIcon />
+                </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Login Persona
+                    </Typography>
+                    <form className={classes.form} noValidate>
+
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    value={nombre}
+                                    onChange={(evt) => {
+                                    console.log(evt)
+                                    setNombre(evt.target.value)
+                                    }}
+                                     autoComplete="fname"
+                                     name="firstName"
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="name"
+                                    label="nombre persona"
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    value={apellido_paterno}
+                                    onChange={(evt) => {
+
+                                    setApellidoP(evt.target.value)
+                                    }}
+                                variant="outlined"
+                                required
+                                fullWidth
+                                id="lastName"
+                                label="apellido paterno"
+                                name="lastName"
+                                autoComplete="lname"
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    value={apellido_materno}
+                                    onChange={(evt) => {
+
+                                    setApellidoM(evt.target.value)
+                                    }}
+                                variant="outlined"
+                                required
+                                fullWidth
+                                id="lastName"
+                                label="apellido materno"
+                                name="lastName"
+                                autoComplete="lname"
+                                />
+                            </Grid>
+
+                        </Grid>
+                        <Button
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                            onClick={() => Guardar()}
+                            >
+                        {accion}
+                     </Button>
+
+
+                    </form>
+        </Container>
+
+    )
+  }
 }
