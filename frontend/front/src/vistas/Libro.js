@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Libros(){
+export default function Libros(props){
     
     const [data, setData] = useState([]);
     const [accion,setAccion] = useState("Guardar")
@@ -250,10 +250,10 @@ export default function Libros(){
     }
 
 
-
-    return(
-        <Container>
-                <Avatar className={classes.avatar}>
+    if(props.id=1){
+        return(
+            <Container>
+                    <Avatar className={classes.avatar}>
                         <LockOutlinedIcon />
                 </Avatar>
                     <Typography component="h1" variant="h5">
@@ -326,10 +326,11 @@ export default function Libros(){
 
                     </form>
         </Container>
-                
-
-
-
+      
 
     )
+
+
+
+    }
 }

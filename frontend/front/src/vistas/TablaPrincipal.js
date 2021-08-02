@@ -111,37 +111,37 @@ export default function Tabla() {
             </AppBar>
         
             <TabPanel value={value} index={0}>
-                <Personas></Personas>    
+                <Personas id={1}></Personas>    
             </TabPanel> 
             <TabPanel value={value} index={1}>
-                <Personas></Personas>                      
+                <Personas id={2}></Personas>                      
             </TabPanel> 
             <TabPanel value={value} index={2}>
-                <Personas></Personas>
+                <Personas id={3}></Personas>
             </TabPanel>
             <TabPanel value={value} index={3}>
-                <Personas></Personas>
+                <Personas id={4}></Personas>
             </TabPanel>
             <TabPanel value={value} index={4}>
-                <Personas></Personas>
+                <Personas id={5}></Personas>
             </TabPanel>
             <TabPanel value={value} index={5}>
-                <Libros></Libros>
+                <Libros id={1}></Libros>
             </TabPanel>
             <TabPanel value={value} index={6}>
-                <Libros></Libros>
+                <Libros id={2}></Libros>
             </TabPanel>
             <TabPanel value={value} index={7}>
-                <Libros></Libros>
+                <Libros id={3}></Libros>
             </TabPanel>
             <TabPanel value={value} index={8}>
-                <Libros></Libros>
+                <Libros id={4}></Libros>
             </TabPanel>
             <TabPanel value={value} index={9}>
-                <Prestamo></Prestamo>
+                <Prestamo id={1}></Prestamo>
             </TabPanel>
             <TabPanel value={value} index={10}>
-                <Prestamo></Prestamo>
+                <Prestamo id={2}></Prestamo>
             </TabPanel>
            
         </Container>

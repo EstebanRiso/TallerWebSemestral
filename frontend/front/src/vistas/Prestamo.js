@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Personas(){
+export default function Prestamo(props){
     
     const [data, setData] = useState([]);
     const [accion,setAccion] = useState("Guardar")
