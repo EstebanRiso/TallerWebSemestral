@@ -383,21 +383,35 @@ export default function Personas(props){
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
-                                value={password}
+                                value={apellido_paterno}
                                 onChange={(evt) => {
 
-                                    setPassword(evt.target.value)
+                                    setApellidoP(evt.target.value)
                                 }}
                                 variant="outlined"
                                 required
                                 fullWidth
                                 id="lastName"
-                                label="Contraseña"
+                                label="Apellido Paterno"
                                 name="lastName"
                                 autoComplete="lname"
                             />
                         </Grid>
-
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                value={apellido_materno}
+                                onChange={(evt) => {
+                                    setApellidoM(evt.target.value)
+                                }}
+                                variant="outlined"
+                                required
+                                fullWidth
+                                id="lastName"
+                                label="Apellido Materno"
+                                name="lastName"
+                                autoComplete="lname"
+                            />
+                        </Grid>
                     </Grid>
                      
                     <Button
@@ -419,78 +433,86 @@ export default function Personas(props){
 
     return(
         <Container>
-                <Avatar className={classes.avatar}>
-                        <LockOutlinedIcon />
+           <form className={classes.form} noValidate> 
+               <Avatar className={classes.avatar}>
+                    <LockOutlinedIcon />
                 </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Login Persona
-                    </Typography>
-                    <form className={classes.form} noValidate>
+                <Typography component="h1" variant="h5">
+                    Modificar Usuario
+                </Typography>
 
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    value={nombre}
-                                    onChange={(evt) => {
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                value={nombre}
+                                onChange={(evt) => {
                                     console.log(evt)
                                     setNombre(evt.target.value)
-                                    }}
-                                     autoComplete="fname"
-                                     name="firstName"
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="name"
-                                    label="nombre persona"
-                                    autoFocus
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    value={apellido_paterno}
-                                    onChange={(evt) => {
+                                }}
+                                autoComplete="fname"
+                                name="firstName"
+                                variant="outlined"
+                                required
+                                fullWidth
+                                id="name"
+                                label="Nombre"
+                                autoFocus
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                value={apellido_paterno}
+                                onChange={(evt) => {
 
                                     setApellidoP(evt.target.value)
-                                    }}
+                                }}
                                 variant="outlined"
                                 required
                                 fullWidth
                                 id="lastName"
-                                label="apellido paterno"
+                                label="Apellido Paterno"
                                 name="lastName"
                                 autoComplete="lname"
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    value={apellido_materno}
-                                    onChange={(evt) => {
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                value={apellido_materno}
+                                onChange={(evt) => {
 
                                     setApellidoM(evt.target.value)
-                                    }}
+                                }}
                                 variant="outlined"
                                 required
                                 fullWidth
                                 id="lastName"
-                                label="apellido materno"
+                                label="Apellido Materno"
                                 name="lastName"
                                 autoComplete="lname"
-                                />
-                            </Grid>
-
+                            />
                         </Grid>
-                        <Button
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                            onClick={() => Guardar()}
-                            >
+                    <Button
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                        onClick={() => Guardar()}
+                    >
                         {accion}
-                     </Button>
-
-
-                    </form>
+                    </Button>
+                    </Grid>
+                 
+                  <Grid container justify="flex-end">
+                        <MaterialDatatable
+                            title={"Modificar Lista de Usuarios"}
+                            data={data}
+                            columns={columns2}
+                            options={options}
+                        />
+                    
+                    </Grid>
+        
+             </form>
         </Container>
 
     )
