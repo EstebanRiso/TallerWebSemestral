@@ -11,8 +11,11 @@ exports.create=(req,res)=>{
     const prestamo = {
         id_persona_personas: req.body.id_persona_personas,
         id_libro_libros: req.body.id_libro_libros,
-        fecha: req.body.fecha
+        fecha: new Date(req.body.fecha)
       };
+    
+    
+    console.log(prestamo.fecha);
 
     Prestamo.create(prestamo)
     .then(data => {
