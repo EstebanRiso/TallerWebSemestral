@@ -331,108 +331,48 @@ export default function Libros(props){
     if(props.id===2){
         return(
             <Container>
-                    <Avatar className={classes.avatar}>
-                        <LockOutlinedIcon />
-                </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Login Libro
-                    </Typography>
                     <form className={classes.form} noValidate>
-
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                     value={autor}
-                                    onChange={(evt) => {
-                                    console.log(evt)
-                                    setAutor(evt.target.value)
-                                    }}
-                                     autoComplete="fname"
-                                     name="firstName"
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="name"
-                                    label="autor"
-                                    autoFocus
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    value={titulo}
-                                    onChange={(evt) => {
-
-                                    setTitulo(evt.target.value)
-                                    }}
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="lastName"
-                                label="titulo"
-                                name="lastName"
-                                autoComplete="lname"
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    value={anio}
-                                    onChange={(evt) => {
-
-                                    setAnio(evt.target.value)
-                                    }}
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="lastName"
-                                label="año"
-                                name="lastName"
-                                autoComplete="lname"
-                                />
-                            </Grid>
-
+                      <Grid container justify="flex-end">
+                            <MaterialDatatable
+                                title={"Lista de Libros"}
+                                data={data}
+                                columns={columns}
+                                options={options}
+                            />
+                        
                         </Grid>
-                        <Button
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                            onClick={() => Guardar()}
-                            >
-                        {accion}
-                     </Button>
-
-
-                    </form>
-        </Container>
-    )
+            
+                        </form>
+            </Container>
+        )
 
     }
     if(props.id===3){
         return(
             <Container>
-                    <Avatar className={classes.avatar}>
+                 <Avatar className={classes.avatar}>
                         <LockOutlinedIcon />
-                </Avatar>
+                    </Avatar>
                     <Typography component="h1" variant="h5">
-                        Login Libro
+                        Eliminar Usuario
                     </Typography>
-                    <form className={classes.form} noValidate>
-
+               <form className={classes.form} noValidate>
+    
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
-                                     value={autor}
+                                    value={autor}
                                     onChange={(evt) => {
-                                    console.log(evt)
-                                    setAutor(evt.target.value)
+                                        console.log(evt)
+                                        setAutor(evt.target.value)
                                     }}
-                                     autoComplete="fname"
-                                     name="firstName"
+                                    autoComplete="fname"
+                                    name="firstName"
                                     variant="outlined"
                                     required
                                     fullWidth
                                     id="name"
-                                    label="autor"
+                                    label="Autor"
                                     autoFocus
                                 />
                             </Grid>
@@ -440,50 +380,49 @@ export default function Libros(props){
                                 <TextField
                                     value={titulo}
                                     onChange={(evt) => {
-
-                                    setTitulo(evt.target.value)
+    
+                                        setTitulo(evt.target.value)
                                     }}
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="lastName"
-                                label="titulo"
-                                name="lastName"
-                                autoComplete="lname"
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="lastName"
+                                    label="Titulo"
+                                    name="lastName"
+                                    autoComplete="lname"
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     value={anio}
                                     onChange={(evt) => {
-
-                                    setAnio(evt.target.value)
+                                        setAnio(evt.target.value)
                                     }}
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="lastName"
-                                label="año"
-                                name="lastName"
-                                autoComplete="lname"
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="lastName"
+                                    label="Año"
+                                    name="lastName"
+                                    autoComplete="lname"
                                 />
                             </Grid>
-
                         </Grid>
+                         
                         <Button
                             fullWidth
                             variant="contained"
-                            color="primary"
+                            color="secondary"
                             className={classes.submit}
-                            onClick={() => Guardar()}
-                            >
-                        {accion}
-                     </Button>
-
-
-                    </form>
-        </Container>
-    )
+                            onClick={() => Eliminar()}
+                        >
+                            Eliminar
+                        </Button>
+            
+              </form>
+            </Container>
+    
+        )
     }
     if(props.id===4){
         return(

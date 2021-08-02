@@ -339,7 +339,7 @@ export default function Personas(props){
                 <form className={classes.form} noValidate>
                   <Grid container justify="flex-end">
                         <MaterialDatatable
-                            title={"Lista de Usuarios"}
+                            title={"Lista de Personas"}
                             data={data}
                             columns={columns}
                             options={options}
@@ -347,7 +347,8 @@ export default function Personas(props){
                     
                     </Grid>
         
-                    </form>
+                </form>
+            
         </Container>
     )
   }

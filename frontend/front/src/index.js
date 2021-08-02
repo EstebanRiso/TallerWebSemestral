@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Persona from './vistas/Persona';
+import Tabla from './vistas/TablaPrincipal';
 import reportWebVitals from './reportWebVitals';
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <Persona />
+    <Tabla></Tabla>
   </React.StrictMode>,
   document.getElementById('root')
 );
