@@ -100,13 +100,11 @@ export default function Tabla() {
                     <Tab label="Guardar Persona" {...a11yProps(0)} />
                     <Tab label="Listar Personas" {...a11yProps(1)} />
                     <Tab label="Eliminar Persona" {...a11yProps(2)} />
-                    <Tab label="Modificar Persona" {...a11yProps(4)} />
-                    <Tab label="Guardar Libro" {...a11yProps(5)} />
-                    <Tab label="Listar Libros" {...a11yProps(6)} />
-                    <Tab label="Eliminar Libro" {...a11yProps(7)} />
-                    <Tab label="Modificar Libro" {...a11yProps(8)} />
-                    <Tab label="Generar Prestamos"{...a11yProps(9)}/>
-                    <Tab label="Listar Prestamos"{...a11yProps(10)}/>
+                    <Tab label="Guardar Libro" {...a11yProps(3)} />
+                    <Tab label="Listar Libros" {...a11yProps(4)} />
+                    <Tab label="Eliminar Libro" {...a11yProps(5)} />
+                    <Tab label="Generar Prestamos"{...a11yProps(6)}/>
+                    <Tab label="Listar Prestamos"{...a11yProps(7)}/>
                 </Tabs>
             </AppBar>
         
@@ -120,24 +118,18 @@ export default function Tabla() {
                 <Personas id={3}></Personas>
             </TabPanel>
             <TabPanel value={value} index={3}>
-                <Personas id={4}></Personas>
-            </TabPanel>
-            <TabPanel value={value} index={4}>
                 <Libros id={1}></Libros>
             </TabPanel>
-            <TabPanel value={value} index={5}>
+            <TabPanel value={value} index={4}>
                 <Libros id={2}></Libros>
             </TabPanel>
-            <TabPanel value={value} index={6}>
+            <TabPanel value={value} index={5}>
                 <Libros id={3}></Libros>
             </TabPanel>
-            <TabPanel value={value} index={7}>
-                <Libros id={4}></Libros>
-            </TabPanel>
-            <TabPanel value={value} index={8}>
+            <TabPanel value={value} index={6}>
                 <Prestamo id={1}></Prestamo>
             </TabPanel>
-            <TabPanel value={value} index={9}>
+            <TabPanel value={value} index={7}>
                 <Prestamo id={2}></Prestamo>
             </TabPanel>
            
