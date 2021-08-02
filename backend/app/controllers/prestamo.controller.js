@@ -8,14 +8,17 @@ const Op = db.Sequelize.Op;
 
 exports.create=(req,res)=>{
 
+
+    var fechaDate= new Date(req.body.fecha);
+
     const prestamo = {
         id_persona_personas: req.body.id_persona_personas,
         id_libro_libros: req.body.id_libro_libros,
-        fecha: new Date(req.body.fecha)
+        fecha: fechaDate
       };
     
     
-    console.log(prestamo.fecha);
+    //console.log(prestamo.fecha);
 
     Prestamo.create(prestamo)
     .then(data => {
