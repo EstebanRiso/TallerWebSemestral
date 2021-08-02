@@ -33,8 +33,7 @@ app.get("/", (req, res) => {
 
 require("./app/routes/libro.routes")(app);
 require("./app/routes/persona.routes")(app);
-
-
+require("./app/routes/prestamo.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8081;
