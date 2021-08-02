@@ -123,24 +123,21 @@ export default function Tabla() {
                 <Personas id={4}></Personas>
             </TabPanel>
             <TabPanel value={value} index={4}>
-                <Personas id={5}></Personas>
-            </TabPanel>
-            <TabPanel value={value} index={5}>
                 <Libros id={1}></Libros>
             </TabPanel>
-            <TabPanel value={value} index={6}>
+            <TabPanel value={value} index={5}>
                 <Libros id={2}></Libros>
             </TabPanel>
-            <TabPanel value={value} index={7}>
+            <TabPanel value={value} index={6}>
                 <Libros id={3}></Libros>
             </TabPanel>
-            <TabPanel value={value} index={8}>
+            <TabPanel value={value} index={7}>
                 <Libros id={4}></Libros>
             </TabPanel>
-            <TabPanel value={value} index={9}>
+            <TabPanel value={value} index={8}>
                 <Prestamo id={1}></Prestamo>
             </TabPanel>
-            <TabPanel value={value} index={10}>
+            <TabPanel value={value} index={9}>
                 <Prestamo id={2}></Prestamo>
             </TabPanel>
            

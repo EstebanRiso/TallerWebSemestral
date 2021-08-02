@@ -27,8 +27,8 @@ const Prestamo= db.prestamo;
 const Libro= db.libro;
 const Persona= db.persona;
 
-Libro.hasMany(Prestamo); // Prestamo tiene la id foranea de Libro
-Persona.hasMany(Prestamo); // Prestamo tiene la id foranea de Persona
+Prestamo.belongsTo(Libro,{foreignKey: 'id_libro_libros'}); 
+Prestamo.belongsTo(Persona,{foreignKey: 'id_persona_personas'}); 
 
 
 module.exports = db;

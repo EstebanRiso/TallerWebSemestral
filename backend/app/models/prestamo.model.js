@@ -19,7 +19,8 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.DATE
       },
     },
-    {freezeTableName: true});
+    { timestamps:false,
+      freezeTableName: true});
 
     return prestamo;
   };
