@@ -9,15 +9,13 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography'; 
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios'
 import MaterialDatatable from "material-datatable";
-import { useForm } from "react-hook-form";
 
 import Swal from 'sweetalert2';
-
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -42,339 +40,295 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Prestamo(props){
 
-
-    const classes = useStyles();
-    const fecha = new Date();
-    const fechaActual = (fecha.getFullYear()+"-"+(fecha.getMonth()+1)+"-"+fecha.getDate());
-  
-    const { register, handleSubmit,errors,getValues,setValue,reset } = useForm(
-      {defaultValues:{ fecha: fecha.getFullYear()+"-"+(fecha.getMonth()+1)+"-"+fecha.getDate()} });
-    const [] = useState(0)
-
-    const [persona, setPersonas]= useState([])
-    const [libros, setLibros] = useState([])
-    const [libroSeleccionado, setLibroSeleccionado] = useState(0)
-    const [personaSeleccionada, setPersonaSeleccionado] = useState(0)
+const [accion,setAccion] = useState("Guardar");
+const [data, setData] = useState([]);
 
 
-    const [data, setData] = useState([]);
-    const [accion,setAccion] = useState("Guardar")
-    const [id,setId] = useState(null)
 
-    const [id_persona_personas, setIdPersona] = useState(null);
-    const [id_libro_libros, setIdLibro] = useState(null);
-    //const [fecha, setFecha]= useState(""); 
-   
+const [autor, setAutor] = useState("");
+const [titulo, setTitulo] = useState("");
+const [anio, setAnio]= useState(0); 
 
-    useEffect(() => {
+const [nombre, setNombre] = useState("");
+const [apellido_paterno, setApellidoP] = useState("");
+const [apellido_materno, setApellidoM]= useState(""); 
 
-        Listar();
-      },[]);
+const [id_persona_personas,setidPersona] = useState(0);
+const [id_libro_libros,setidLibro]=useState(0);
+const [fecha,setFecha]=useState(0);
+
+useEffect(() => {
+    Listar_Prestamo();
+  },[]);
+
+const classes = useStyles();
 
 
-    useEffect(() => {
-        cargarLibro();
-      }, []);
+
+const column1 = [
     
-    useEffect(() => {
-        cargarPersona();
-      }, []);
-    
+    {
+        name: 'Nombre',
+        field: 'nombre',
+    },
+    {
+        name: 'Apellido_Paterno',
+        field: 'apellido_paterno',
+    },
+    {
+        name: 'Apellido_Materno',
+        field: 'apellido_materno'
+    }
+];
 
-  
-    
-      const seleccionar1 = (item) =>{
+const column2=[
+    {
+        name: 'Autor',
+        field: 'autor',
+    },
+    {
+        name: 'Titulo',
+        field: 'titulo',
+    },
+    {
+        name: 'Anio',
+        field: 'anio'
+    }
+];
 
-        setValue("persona",item._id)
-        setIdPersona(item._id)
-        }
-    
-        const seleccionar2 = (item) =>{
-          
-            setValue("libro",item._id)
-          setIdLibro(item._id)
+const column3=[
+    {
+        name:'Persona',
+        field: 'persona',
+    },
+    {
+        name: 'Libro',
+        field: 'libro',
+    },
+    {
+        name: 'Fecha',
+        field: 'fecha'
+    }
+];
+
+
+
+const Listar_Prestamo= () =>{
+
+  axios
+      .get(
+          `http://localhost:8081/api/prestamo`
+      )
+      .then(
+          (response) => {
+              setData(response.data)
+       
+          },
+          (error) => {
+              console.log(error)
           }
 
 
 
+      );
+}
 
-          const columns = [
-            {
-              name: "Seleccionar",
-              options: {
-                headerNoWrap: true,
-                customBodyRender: (item, tablemeta, update) => {
-                  return (
-                    <Button
-                      variant="contained"
-                      className="btn-block"
-                      onClick={() => seleccionar1(item)}
-                    >
-                      Seleccionar
-                    </Button>
-                  );
-                },
-              },
-            },
-            {
-                name: 'Nombre',
-                field: 'nombre',
-            },
-            {
-                name: 'Apellido Paterno',
-                field: 'apellido_paterno',
-            },
-            {
-                name: 'Apellido Materno',
-                field: 'apellido_materno'
-            }  
-          ];
-        
-          const columns2 = [
-            {
-              name: "Seleccionar",
-              options: {
-                headerNoWrap: true,
-                customBodyRender: (item, tablemeta, update) => {
-                  return (
-                    <Button
-                      variant="contained"
-                      className="btn-block"
-                      onClick={() => seleccionar2(item)}
-                    >
-                      Seleccionar
-                    </Button>
-                  );
-                },
-              },
-            },
-            {
-                name: 'Titulo',
-                field: 'titulo',
-            }
-          
-            
-          ];
+const Listar_Persona= () =>{
 
-
-
-  
-const options={
-    selectableRows: false,
-    print: false,
-    onlyOneRowCanBeSelected: false,
-    textLabels: {
-      body: {
-        noMatch: "Lo sentimos, no se encuentran registros",
-        toolTip: "Sort",
-      },
-      pagination: {
-        next: "Siguiente",
-        previous: "Página Anterior",
-        rowsPerPage: "Filas por página:",
-        displayRows: "de",
-      },
-    },
-    download: false,
-    pagination: true,
-    rowsPerPage: 5,
-    usePaperPlaceholder: true,
-    rowsPerPageOptions: [5, 10, 25],
-    sortColumnDirection: "desc",
-  }
-
-
-  const options2={
-    selectableRows: false,
-    print: false,
-    onlyOneRowCanBeSelected: false,
-    textLabels: {
-      body: {
-        noMatch: "Lo sentimos, no se encuentran registros",
-        toolTip: "Sort",
-      },
-      pagination: {
-        next: "Siguiente",
-        previous: "Página Anterior",
-        rowsPerPage: "Filas por página:",
-        displayRows: "de",
-      },
-    },
-    download: false,
-    pagination: true,
-    rowsPerPage: 5,
-    usePaperPlaceholder: true,
-    rowsPerPageOptions: [5, 10, 25],
-    sortColumnDirection: "desc",
-  }
-
-
-
-
-    const Listar = () =>{
-
-        axios
-            .get(
-                `http://localhost:8081/api/prestamo`
-            )
-            .then(
-                (response) => {
-                    setData(response.data)
-             
-                },
-                (error) => {
-                    console.log(error)
-                }
-
-
-
-            );
-    }
-
-    const Guardar = () => {
-
-
-      if(accion=="Guardar"){
-        axios
-        .post(
-            `http://localhost:8081/api/prestamo`, {
-            id_persona_personas: id_persona_personas,
-            id_libro_libros: id_libro_libros,
-            fecha: fecha
-        }
+    axios
+        .get(
+            `http://localhost:8081/api/persona`
         )
         .then(
             (response) => {
-                if (response.status == 200) {
-                    Swal.fire({
-                        title: 'Perfecto!',
-                        text: 'Registro Correcto',
-                        icon: 'success',
-                        confirmButtonText: 'ok'
-                      })
-                    Listar();
-                }
-
+                setData(response.data)
+         
             },
             (error) => {
-
-                alert("Error al registrar")
+                console.log(error)
             }
-
-
-
+  
+  
+  
         );
-      }  
-    }
+  }
 
+  const Listar_Libros= () =>{
 
-
-
-    
-  const cargarLibro = async () => {
-
-    const { data } = await axios.get("http://localhost:8081/api/libro");
-    
-    setLibros(data.libroConAutor);
-
-
-  };
-
-  const cargarPersona = async () => {
-
-
-    const { data } = await axios.get("http://localhost:8081/api/persona");
-    
-    setPersonas(data.persona);
-
-  };
-  
-
-    
-    if(props.id===1){
-
-        return(
-                <Container component="main" maxWidth="md">
-      <CssBaseline />
-      <div className={classes.paper}>
-
- 
-        <form className={classes.form} onSubmit={handleSubmit(Guardar)}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="persona"
-                name="persona"
-                variant="outlined"
-                required
-                fullWidth
-                id="personaid"
-                label="persona"
-                autoFocus
-                {...register('test', { required: true })}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="libro"
-                label="libro"
-                name="libro"
-                autoComplete="libro"
-                {...register('test', { required: true })}
-              />
-            </Grid>
-            <Grid>
-            <MaterialDatatable
-        
-              title={"Persona"}
-              data={persona}
-              columns={columns}
-              options={options}
-            />
-          </Grid>
-          <Grid>
-            <MaterialDatatable
-        
-              title={"Libros"}
-              data={libros}
-              columns={columns2}
-              options={options2}
-            />
-          </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            {accion}
-          </Button>
-
-
-  
-        
-        </form>
-
-
-      </div>
-
-    </Container>
-    
+    axios
+        .get(
+            `http://localhost:8081/api/libro`
         )
+        .then(
+            (response) => {
+                setData(response.data)
+         
+            },
+            (error) => {
+                console.log(error)
+            }
+  
+  
+  
+        );
+  }
+
+
+const Guardar_Prestamo = () => {
+
+
+
+if(accion=="Guardar"){
+    axios
+    .post(
+      `http://localhost:8081/api/prestamo`, {
+      id_persona_personas: id_persona_personas,
+      id_libro_libros: id_libro_libros,
+      fecha: fecha
+  }
+  )
+  .then(
+      (response) => {
+          if (response.status == 200) {
+              //alert("Registro Correcto")
+              Swal.fire({
+                  title: 'Perfecto!',
+                  text: 'Registro Correcto',
+                  icon: 'success',
+                  confirmButtonText: 'ok'
+                })
+              Listar_Prestamo();
+          }
+
+      },
+      (error) => {
+
+          alert("Error al registrar")
       }
 
 
 
+  );
+ }  
+}
 
-      if(props.id===2){
-      
-      
-    }
+const options = {
+    selectableRows:false
+};
 
+if(props.id===2){
+    return(
+    <Container>
+            <Avatar className={classes.avatar}>
+                    <LockOutlinedIcon />
+            </Avatar>
+                <Typography component="h1" variant="h5">
+                     Sección Prestamos 
+                </Typography>
+                <form className={classes.form} noValidate>
+
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                 value={nombre}
+                                onChange={(evt) => {
+                                console.log(evt)
+                                setNombre(evt.target.value)
+                                }}
+                                 autoComplete="fname"
+                                 name="firstName"
+                                variant="outlined"
+                                required
+                                fullWidth
+                                id="name"
+                                label="nombre persona"
+                                autoFocus
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                value={apellido_paterno}
+                                onChange={(evt) => {
+
+                                setApellidoP(evt.target.value)
+                                }}
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="lastName"
+                            label="apellido paterno"
+                            name="lastName"
+                            autoComplete="lname"
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                value={apellido_materno}
+                                onChange={(evt) => {
+
+                                setApellidoM(evt.target.value)
+                                }}
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="lastName"
+                            label="apellido materno"
+                            name="lastName"
+                            autoComplete="lname"
+                            />
+                        </Grid>
+
+                    </Grid>
+                    <Button
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                        onClick={() => Guardar_Prestamo()}
+                        >
+                    {accion}
+                 </Button>
+
+
+                </form>
+    </Container>)
+  }
+
+  if(props.id===1){
+
+    return(
+        <Container>
+                <form className={classes.form} noValidate>
+                  <Grid container justify="flex-end">
+                        <MaterialDatatable
+                            title={"Lista de Personas"}
+                            data={data}
+                            columns={column1}
+                            options={options}
+                        />
+                    
+                    </Grid>
+        
+                </form>
+                <form className={classes.form} noValidate>
+                  <Grid container justify="flex-end">
+                        <MaterialDatatable
+                            title={"Lista de Libros"}
+                            data={data}
+                            columns={column2}
+                            options={options}
+                        />
+                    
+                   </Grid>
+        
+                </form>
+
+                
+            
+        </Container>
+    )
+  }
+
+                            
 
 }

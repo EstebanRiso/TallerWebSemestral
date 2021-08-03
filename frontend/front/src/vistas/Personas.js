@@ -50,6 +50,8 @@ export default function Personas(props){
     const [accion,setAccion] = useState("Guardar")
     const [id,setId] = useState(null)
 
+
+    
     const [nombre, setNombre] = useState("");
     const [apellido_paterno, setApellidoP] = useState("");
     const [apellido_materno, setApellidoM]= useState(""); 
