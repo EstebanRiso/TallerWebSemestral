@@ -311,7 +311,7 @@ const options={
                 id="personaid"
                 label="persona"
                 autoFocus
-                inputRef={register}
+                {...register('test', { required: true })}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -323,7 +323,7 @@ const options={
                 label="libro"
                 name="libro"
                 autoComplete="libro"
-                inputRef={register}
+                {...register('test', { required: true })}
               />
             </Grid>
             <Grid>
