@@ -257,7 +257,7 @@ export default function Libros(props){
                         <LockOutlinedIcon />
                 </Avatar>
                     <Typography component="h1" variant="h5">
-                        Login Libro
+                         Libro
                     </Typography>
                     <form className={classes.form} noValidate>
 

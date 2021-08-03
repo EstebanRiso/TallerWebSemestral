@@ -17,11 +17,6 @@ import axios from 'axios'
 import Swal from 'sweetalert2';
 
 
-
-  
-
-
-
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -83,7 +78,7 @@ export default function Prestamo(props){
     const columns2 = [
 
         {
-            name: "Seleccionar Persona",
+            name: "Seleccionar Prestamo",
             options: {
               headerNoWrap: true,
               customBodyRender: (item) => {
@@ -153,6 +148,7 @@ export default function Prestamo(props){
         setIdLibro("");
         setFecha("");
     }
+
     const Guardar = () => {
 
 
@@ -199,13 +195,110 @@ export default function Prestamo(props){
 
 
 
+    
+    if(props.id===1){
+
+        return(
+            <Container>
+                    <Avatar className={classes.avatar}>
+                            <LockOutlinedIcon />
+                    </Avatar>
+                        <Typography component="h1" variant="h5">
+                            Sección Prestamos
+                        </Typography>
+                        <form className={classes.form} noValidate>
+    
+                            <Grid container spacing={2}>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                         value={nombre}
+                                        onChange={(evt) => {
+                                        console.log(evt)
+                                        setIdPersona(evt.target.id)
+                                        }}
+                                         autoComplete="fname"
+                                         name="firstName"
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="name"
+                                        label="Persona"
+                                        autoFocus
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        value={apellido_paterno}
+                                        onChange={(evt) => {
+    
+                                        setIdLibro(evt.target.id)
+                                        }}
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="lastName"
+                                    label="Libro"
+                                    name="lastName"
+                                    autoComplete="lname"
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        value={apellido_materno}
+                                        onChange={(evt) => {
+    
+                                            setFecha(evt.target.value)
+                                        }}
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="lastName"
+                                    label="Fecha"
+                                    name="lastName"
+                                    autoComplete="lname"
+                                    />
+                                </Grid>
+    
+                            </Grid>
+                            <Button
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}
+                                onClick={() => Guardar()}
+                                >
+                            {accion}
+                         </Button>
+    
+    
+                        </form>
+            </Container>
+    
+        )
+      }
 
 
-    return(
-        <Container>
-                Container
-        </Container>
-                
 
-    );
+
+      if(props.id===2){
+        return(
+            <Container>
+                    <form className={classes.form} noValidate>
+                      <Grid container justify="flex-end">
+                            <MaterialDatatable
+                                title={"Lista de Prestamos"}
+                                data={data}
+                                columns={columns}
+                                options={options}
+                            />
+                        
+                        </Grid>
+            
+                        </form>
+            </Container>
+        )
+
+    }
+
+
 }
