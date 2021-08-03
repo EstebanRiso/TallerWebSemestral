@@ -13,6 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios'
+import MaterialDatatable from "material-datatable";
+import { useForm } from "react-hook-form";
 
 import Swal from 'sweetalert2';
 
@@ -48,6 +50,8 @@ export default function Prestamo(props){
     const { register, handleSubmit,errors,getValues,setValue,reset } = useForm(
       {defaultValues:{ fecha: fecha.getFullYear()+"-"+(fecha.getMonth()+1)+"-"+fecha.getDate()} });
     const [] = useState(0)
+
+    const [persona, setPersonas]= useState([])
     const [libros, setLibros] = useState([])
     const [libroSeleccionado, setLibroSeleccionado] = useState(0)
     const [personaSeleccionada, setPersonaSeleccionado] = useState(0)
@@ -153,64 +157,6 @@ export default function Prestamo(props){
           ];
 
 
-   /* const columns = [
-
-        {
-            name: 'Id_persona_personas',
-            field: 'id_persona_personas',
-        },
-        {
-            name: 'Id_libro_libros',
-            field: 'id_libro_libros',
-        },
-        {
-            name: 'Fecha',
-            field: 'fecha'
-        }
-    ];*/
-
-    /*
-    const columns2 = [
-
-        {
-            name: "Seleccionar Prestamo",
-            options: {
-              headerNoWrap: true,
-              customBodyRender: (item) => {
-                return (
-                  <Button
-                    variant="contained"
-                    className="btn-block"
-                    onClick={() =>{
-                        setIdPersona(item.id_persona_personas)
-                        setIdLibro(item.id_libro_libros)
-                        setFecha(item.fecha)
-                        setId(item.id)
-                        setAccion("Modificar")
-                    }}
-                  >
-                    Seleccionar
-                  </Button>
-                );
-              },
-            },
-          },
-        {
-            name: 'Id_persona_personas',
-            field: 'id_persona_personas',
-        },
-        {
-            name: 'Id_libro_libros',
-            field: 'id_libro_libros',
-        },
-        {
-            name: 'Fecha',
-            field: 'fecha'
-        },
-    ];
-
-*/
-
 
   
 const options={
@@ -288,7 +234,6 @@ const options={
     const Guardar = () => {
 
 
-
       if(accion=="Guardar"){
         axios
         .post(
@@ -301,7 +246,6 @@ const options={
         .then(
             (response) => {
                 if (response.status == 200) {
-                    //alert("Registro Correcto")
                     Swal.fire({
                         title: 'Perfecto!',
                         text: 'Registro Correcto',
@@ -309,7 +253,6 @@ const options={
                         confirmButtonText: 'ok'
                       })
                     Listar();
-                    Limpiar();
                 }
 
             },
@@ -324,7 +267,7 @@ const options={
       }  
     }
 
-    
+
 
 
     
@@ -347,9 +290,6 @@ const options={
   };
   
 
-
-
-
     
     if(props.id===1){
 
@@ -359,7 +299,7 @@ const options={
       <div className={classes.paper}>
 
  
-        <form className={classes.form} onSubmit={handleSubmit(guardar)}>
+        <form className={classes.form} onSubmit={handleSubmit(Guardar)}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -390,7 +330,7 @@ const options={
             <MaterialDatatable
         
               title={"Persona"}
-              data={personas}
+              data={persona}
               columns={columns}
               options={options}
             />

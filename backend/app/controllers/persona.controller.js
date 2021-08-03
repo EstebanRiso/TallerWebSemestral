@@ -36,7 +36,7 @@ exports.create = (req, res) => {
             err.message || "Error al retirar personas."
         });
       });
-  };z
+  };
 
 
   exports.update = (req, res) => {
