@@ -1,4 +1,5 @@
 import React, { useState,useEffect } from 'react';
+import { Autocomplete } from "@material-ui/lab";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,8 +15,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios'
 import MaterialDatatable from "material-datatable";
-
 import Swal from 'sweetalert2';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -48,33 +49,67 @@ const [data, setData] = useState([]);
 
 
 //Libro
-const [autor, setAutor] = useState("");
-const [titulo, setTitulo] = useState("");
-const [anio, setAnio]= useState(0); 
+const [libros,setLibros]=useState([]); 
 //Persona
-const [nombre, setNombre] = useState("");
-const [apellido_paterno, setApellidoP] = useState("");
-const [apellido_materno, setApellidoM]= useState(""); 
+const [personas,setPersonas]=useState([]);
 //Prestamo
 const [id_persona_personas,setidPersona] = useState(0);
 const [id_libro_libros,setidLibro]=useState(0);
 const [fecha,setFecha]=useState(0);
+//seleccion de persona
+const[persona,setPersona]=useState({
+    label:"",
+    value:""
+})
+//seleccion de libro
+const[libro,setSelectLibro]=useState({
+    id:0,
+    titulo:""
+});
+
+const columns = [
+
+    {
+        name: "Seleccionar",
+        options: {
+          headerNoWrap: true,
+          customBodyRender: (item, tablemeta, update) => {
+            return (
+              <Button
+                variant="contained"
+                color="secondary"
+                className="medium"
+                onClick={() => {setSelectLibro({id:item.id,titulo:item.titulo});}}
+              >
+                Seleccionar
+              </Button>
+            );
+          },
+        },
+      },
+    
+
+    {
+        name: 'Autor',
+        field: 'autor',
+    },
+    {
+        name: 'Titulo',
+        field: 'titulo',
+    },
+    {
+        name: 'Anio',
+        field: 'anio'
+    }
+];
+
 
 useEffect(() => {
     Listar_Prestamo();
-  },[]);
-
-
-useEffect(() => {
-
     Listar_Persona();
-  },[]);
-
-
-useEffect(() => {
-
     Listar_Libros();
   },[]);
+
 
 
 const classes = useStyles();
@@ -157,7 +192,7 @@ const Listar_Persona= () =>{
         )
         .then(
             (response) => {
-                setDataPersona(response.dataPersona)
+                setPersonas(response.data)
          
             },
             (error) => {
@@ -177,7 +212,7 @@ const Listar_Persona= () =>{
         )
         .then(
             (response) => {
-                setDataLibro(response.dataLibro)
+                setLibros(response.data)
          
             },
             (error) => {
@@ -237,78 +272,62 @@ const options = {
 if(props.id===1){
     return(
     <Container>
-                <Avatar alt="Remy Sharp" src="/broken-image.jpg" className={classes.orange}>
-                      P
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                     Sección y  Registro de Prestamos 
-                </Typography>
-                <form className={classes.form} noValidate>
+        
+            <Autocomplete
+                 margin="dense"
+                 id="select_personas"
+                 name="select_personas"
+                 onChange={(event, newValue) =>{
+ 
+                    setPersona({ label: newValue.label, value: newValue.value });
+                    
+                    }      
+ 
+                    }
+                 options={personas.map((item, index) => ({
+                   label: item.nombre,
+                   value: item.id,
+                 }))}
+                 getOptionLabel={(options) => options.label}
+                 value={persona}
+                 renderInput={(params) => (
+                   <TextField
+                     fullwidth
+                     margin="dense"
+                     {...params}
+                     label="Personas"
+                     variant="outlined"
+                     fullWidth
+                     name="txt_zonas"
+                     size="small"
+                     margin="dense"
+                   />
+                 )}
+               />
 
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                 value={nombre}
-                                onChange={(evt) => {
-                                console.log(evt)
-                                setNombre(evt.target.value)
-                                }}
-                                autoComplete="fname"
-                                name="firstName"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="name"
-                                label="nombre persona"
-                                autoFocus
+                <Container>
+                    <form className={classes.form} noValidate>
+                      <Grid container justify="flex-start">
+                            <MaterialDatatable
+                                title={"Lista de Libros"}
+                                data={libros}
+                                columns={columns}
+                                options={options}
                             />
                         </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                value={apellido_paterno}
-                                onChange={(evt) => {
+            
+                        </form>
+                
+                
+                
+                </Container>     
+                <Grid container justify="flex-end">
+                            <Paper>
+                                <label>{libro.titulo}</label>
+                            </Paper>
+                </Grid>
 
-                                setApellidoP(evt.target.value)
-                                }}
-                            variant="outlined"
-                            required
-                            fullWidth
-                            id="lastName"
-                            label="apellido paterno"
-                            name="lastName"
-                            autoComplete="lname"
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                value={apellido_materno}
-                                onChange={(evt) => {
-
-                                setApellidoM(evt.target.value)
-                                }}
-                            variant="outlined"
-                            required
-                            fullWidth
-                            id="lastName"
-                            label="apellido materno"
-                            name="lastName"
-                            autoComplete="lname"
-                            />
-                        </Grid>
-
-                    </Grid>
-                    <Button
-                        fullWidth
-                        variant="contained"
-                        color="secondary"
-                        className={classes.submit}
-                        onClick={() => Guardar_Prestamo()}
-                    >
-                      {accion}
-                 </Button>
-
-
-                </form>
+                
     </Container>)
   }
 
@@ -350,7 +369,7 @@ if(props.id===1){
                    <Grid item xs={12} sm={6}>
                         <MaterialDatatable
                             title={"Lista de Prestamos"}
-                            data={data}
+                            data={libros}
                             columns={column3}
                             options={options}
                         />
