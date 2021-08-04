@@ -40,19 +40,22 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Prestamo(props){
 
-const [accion,setAccion] = useState("Guardar");
+const [accion,setAccion] = useState("Registrar prestamo");
+
+const [dataPersona, setDataPersona] = useState([]);
+const [dataLibro, setDataLibro] = useState([]);
 const [data, setData] = useState([]);
 
 
-
+//Libro
 const [autor, setAutor] = useState("");
 const [titulo, setTitulo] = useState("");
 const [anio, setAnio]= useState(0); 
-
+//Persona
 const [nombre, setNombre] = useState("");
 const [apellido_paterno, setApellidoP] = useState("");
 const [apellido_materno, setApellidoM]= useState(""); 
-
+//Prestamo
 const [id_persona_personas,setidPersona] = useState(0);
 const [id_libro_libros,setidLibro]=useState(0);
 const [fecha,setFecha]=useState(0);
@@ -60,6 +63,19 @@ const [fecha,setFecha]=useState(0);
 useEffect(() => {
     Listar_Prestamo();
   },[]);
+
+
+useEffect(() => {
+
+    Listar_Persona();
+  },[]);
+
+
+useEffect(() => {
+
+    Listar_Libros();
+  },[]);
+
 
 const classes = useStyles();
 
@@ -141,7 +157,7 @@ const Listar_Persona= () =>{
         )
         .then(
             (response) => {
-                setData(response.data)
+                setDataPersona(response.dataPersona)
          
             },
             (error) => {
@@ -161,7 +177,7 @@ const Listar_Persona= () =>{
         )
         .then(
             (response) => {
-                setData(response.data)
+                setDataLibro(response.dataLibro)
          
             },
             (error) => {
@@ -198,6 +214,8 @@ if(accion=="Guardar"){
                   confirmButtonText: 'ok'
                 })
               Listar_Prestamo();
+              //Listar_Libros();
+              //Listar_Persona();
           }
 
       },
@@ -216,14 +234,14 @@ const options = {
     selectableRows:false
 };
 
-if(props.id===2){
+if(props.id===1){
     return(
     <Container>
-            <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-            </Avatar>
+                <Avatar alt="Remy Sharp" src="/broken-image.jpg" className={classes.orange}>
+                      P
+                </Avatar>
                 <Typography component="h1" variant="h5">
-                     Sección Prestamos 
+                     Sección y  Registro de Prestamos 
                 </Typography>
                 <form className={classes.form} noValidate>
 
@@ -235,8 +253,8 @@ if(props.id===2){
                                 console.log(evt)
                                 setNombre(evt.target.value)
                                 }}
-                                 autoComplete="fname"
-                                 name="firstName"
+                                autoComplete="fname"
+                                name="firstName"
                                 variant="outlined"
                                 required
                                 fullWidth
@@ -282,11 +300,11 @@ if(props.id===2){
                     <Button
                         fullWidth
                         variant="contained"
-                        color="primary"
+                        color="secondary"
                         className={classes.submit}
                         onClick={() => Guardar_Prestamo()}
-                        >
-                    {accion}
+                    >
+                      {accion}
                  </Button>
 
 
@@ -294,15 +312,19 @@ if(props.id===2){
     </Container>)
   }
 
-  if(props.id===1){
+  if(props.id===2){
 
     return(
         <Container>
+
+              <Grid container spacing={2}>
+                  
                 <form className={classes.form} noValidate>
-                  <Grid container justify="flex-end">
+                  
+                    <Grid item xs={12} sm={6}>
                         <MaterialDatatable
                             title={"Lista de Personas"}
-                            data={data}
+                            data={dataPersona}
                             columns={column1}
                             options={options}
                         />
@@ -310,12 +332,26 @@ if(props.id===2){
                     </Grid>
         
                 </form>
+                
                 <form className={classes.form} noValidate>
-                  <Grid container justify="flex-end">
+                  <Grid item xs={12} sm={6}>
                         <MaterialDatatable
                             title={"Lista de Libros"}
-                            data={data}
+                            data={dataLibro}
                             columns={column2}
+                            options={options}
+                        />
+                    
+                  </Grid>
+        
+                </form>
+
+                <form className={classes.form} noValidate>
+                   <Grid item xs={12} sm={6}>
+                        <MaterialDatatable
+                            title={"Lista de Prestamos"}
+                            data={data}
+                            columns={column3}
                             options={options}
                         />
                     
@@ -323,8 +359,8 @@ if(props.id===2){
         
                 </form>
 
-                
-            
+
+              </Grid>
         </Container>
     )
   }
