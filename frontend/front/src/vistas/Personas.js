@@ -341,7 +341,7 @@ export default function Personas(props){
     return(
         <Container>
                 <form className={classes.form} noValidate>
-                  <Grid container justify="flex-end">
+                  <Grid container justify="flex-center">
                         <MaterialDatatable
                             title={"Lista de Personas"}
                             data={data}
@@ -364,7 +364,7 @@ export default function Personas(props){
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Eliminar Usuario
+                    Eliminar Persona
                 </Typography>
            <form className={classes.form} noValidate>
 

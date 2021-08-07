@@ -53,19 +53,24 @@ const [libros,setLibros]=useState([]);
 //Persona
 const [personas,setPersonas]=useState([]);
 //Prestamo
-const [id_persona_personas,setidPersona] = useState(0);
-const [id_libro_libros,setidLibro]=useState(0);
-const [fecha,setFecha]=useState(0);
+
 //seleccion de persona
 const[persona,setPersona]=useState({
-    label:"",
-    value:""
+    id:0,
+    nombre:"",
+    apellido_paterno:"",
+    apellido_materno:""
 })
 //seleccion de libro
 const[libro,setSelectLibro]=useState({
     id:0,
     titulo:""
 });
+
+const[id_libro,setIdLibro]=useState(0)
+const[id_persona,setIdPersona]=useState(0)
+const[fecha,setFecha]=useState("")
+
 
 const columns = [
 
@@ -102,6 +107,45 @@ const columns = [
         field: 'anio'
     }
 ];
+
+
+
+const columns2= [
+
+    {
+        name: "Seleccionar",
+        options: {
+          headerNoWrap: true,
+          customBodyRender: (item, tablemeta, update) => {
+            return (
+              <Button
+                variant="contained"
+                color="secondary"
+                className="medium"
+                onClick={() => {setPersona({id:item.id,nombre:item.nombre,apellido_paterno:item.apellido_paterno,apellido_materno:item.apellido_materno});}}
+              >
+                Seleccionar
+              </Button>
+            );
+          },
+        },
+      },
+    
+
+    {
+        name: 'Nombre',
+        field: 'nombre',
+    },
+    {
+        name: 'Apellido_paterno',
+        field: 'apellido_paterno',
+    },
+    {
+        name: 'Apellido_materno',
+        field: 'apellido_materno'
+    }
+];
+
 
 
 useEffect(() => {
@@ -150,11 +194,30 @@ const column2=[
 const column3=[
     {
         name:'Persona',
-        field: 'persona',
+        field:[ {  name:"Nombre",
+                   field:"nombre",
+                },
+                { name:"Apellido_paterno",
+                 field:"apellido_paterno"
+                },
+                {
+                  name:"Apellido_materno",
+                  field:"apellido_materno"
+                }]
+    
     },
     {
         name: 'Libro',
-        field: 'libro',
+        field: [{ name:"Autor",
+                   field:"autor",
+                },
+                { name:"Titulo",
+                 field:"titulo"
+                },
+                {
+                  name:"Año",
+                  field:"anio"
+                }],
     },
     {
         name: 'Fecha',
@@ -233,8 +296,8 @@ if(accion=="Guardar"){
     axios
     .post(
       `http://localhost:8081/api/prestamo`, {
-      id_persona_personas: id_persona_personas,
-      id_libro_libros: id_libro_libros,
+      id_persona_personas: id_persona,
+      id_libro_libros: id_libro,
       fecha: fecha
   }
   )
@@ -273,38 +336,6 @@ if(props.id===1){
     return(
     <Container>
         
-            <Autocomplete
-                 margin="dense"
-                 id="select_personas"
-                 name="select_personas"
-                 onChange={(event, newValue) =>{
- 
-                    setPersona({ label: newValue.label, value: newValue.value });
-                    
-                    }      
- 
-                    }
-                 options={personas.map((item, index) => ({
-                   label: item.nombre,
-                   value: item.id,
-                 }))}
-                 getOptionLabel={(options) => options.label}
-                 value={persona}
-                 renderInput={(params) => (
-                   <TextField
-                     fullwidth
-                     margin="dense"
-                     {...params}
-                     label="Personas"
-                     variant="outlined"
-                     fullWidth
-                     name="txt_zonas"
-                     size="small"
-                     margin="dense"
-                   />
-                 )}
-               />
-
                 <Container>
                     <form className={classes.form} noValidate>
                       <Grid container justify="flex-start">
@@ -314,18 +345,40 @@ if(props.id===1){
                                 columns={columns}
                                 options={options}
                             />
+
+                            <MaterialDatatable
+                                title={"Lista de Personas"}
+                                data={personas}
+                                columns={columns2}
+                                options={options}
+                            />
                         </Grid>
             
                         </form>
+
+
                 
-                
-                
-                </Container>     
-                <Grid container justify="flex-end">
+                        <Grid container justify="flex-end">
                             <Paper>
                                 <label>{libro.titulo}</label>
+                                <label>{persona.nombre}</label>
                             </Paper>
-                </Grid>
+                            <Button onClick={()=>{
+                                
+                                setIdPersona(persona.id)
+                                setIdLibro(libro.id)
+                                console.log(id_libro)
+                                console.log(id_persona)
+                                //coloca la fecha puto :3 
+                                Guardar_Prestamo()
+                            
+                            }}>
+                                    GENERAR PRESTAMO
+                            </Button>
+                        </Grid> 
+                
+                </Container>     
+                
 
                 
     </Container>)
@@ -336,50 +389,20 @@ if(props.id===1){
     return(
         <Container>
 
-              <Grid container spacing={2}>
-                  
-                <form className={classes.form} noValidate>
-                  
-                    <Grid item xs={12} sm={6}>
-                        <MaterialDatatable
-                            title={"Lista de Personas"}
-                            data={dataPersona}
-                            columns={column1}
-                            options={options}
-                        />
-                    
-                    </Grid>
-        
-                </form>
-                
-                <form className={classes.form} noValidate>
-                  <Grid item xs={12} sm={6}>
-                        <MaterialDatatable
-                            title={"Lista de Libros"}
-                            data={dataLibro}
-                            columns={column2}
-                            options={options}
-                        />
-                    
-                  </Grid>
-        
-                </form>
+           
 
                 <form className={classes.form} noValidate>
                    <Grid item xs={12} sm={6}>
                         <MaterialDatatable
                             title={"Lista de Prestamos"}
-                            data={libros}
+                            data={data}
                             columns={column3}
                             options={options}
                         />
                     
                    </Grid>
-        
                 </form>
 
-
-              </Grid>
         </Container>
     )
   }

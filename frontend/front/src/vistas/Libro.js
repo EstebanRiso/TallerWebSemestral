@@ -332,7 +332,7 @@ export default function Libros(props){
         return(
             <Container>
                     <form className={classes.form} noValidate>
-                      <Grid container justify="flex-end">
+                      <Grid container justify="flex-center">
                             <MaterialDatatable
                                 title={"Lista de Libros"}
                                 data={data}
@@ -354,7 +354,7 @@ export default function Libros(props){
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Eliminar Usuario
+                        Eliminar Libro
                     </Typography>
                <form className={classes.form} noValidate>
     

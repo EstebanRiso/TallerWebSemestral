@@ -1,5 +1,4 @@
 module.exports = {
- /* 
   HOST: "localhost",
   USER: "postgres",
   PASSWORD: "credecialidad08",
@@ -12,9 +11,9 @@ module.exports = {
     acquire: 30000,
     idle: 10000
   }
-  */
+ 
 
-  HOST: "localhost",
+  /*HOST: "localhost",
   USER: "postgres",
   PASSWORD: "1234",
   DB: "BDD01",
@@ -26,5 +25,5 @@ module.exports = {
     acquire: 30000,
     idle: 10000
   }
-
+*/
 };
