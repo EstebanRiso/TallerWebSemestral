@@ -17,6 +17,8 @@ import axios from 'axios'
 import MaterialDatatable from "material-datatable";
 import Swal from 'sweetalert2';
 import Paper from '@material-ui/core/Paper';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -41,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Prestamo(props){
 
-const [accion,setAccion] = useState("Registrar prestamo");
+const [accion,setAccion] = useState("Guardar");
 
 const [dataPersona, setDataPersona] = useState([]);
 const [dataLibro, setDataLibro] = useState([]);
@@ -69,7 +71,7 @@ const[libro,setSelectLibro]=useState({
 
 const[id_libro,setIdLibro]=useState(0)
 const[id_persona,setIdPersona]=useState(0)
-const[fecha,setFecha]=useState("")
+const[fecha,setFecha]=useState(new Date())
 
 
 const columns = [
@@ -84,7 +86,9 @@ const columns = [
                 variant="contained"
                 color="secondary"
                 className="medium"
-                onClick={() => {setSelectLibro({id:item.id,titulo:item.titulo});}}
+                onClick={() => {setSelectLibro({id:item.id,titulo:item.titulo});
+                                setIdLibro(item.id)
+                                }}
               >
                 Seleccionar
               </Button>
@@ -122,7 +126,9 @@ const columns2= [
                 variant="contained"
                 color="secondary"
                 className="medium"
-                onClick={() => {setPersona({id:item.id,nombre:item.nombre,apellido_paterno:item.apellido_paterno,apellido_materno:item.apellido_materno});}}
+                onClick={() => {setPersona({id:item.id,nombre:item.nombre,apellido_paterno:item.apellido_paterno,apellido_materno:item.apellido_materno});
+                                setIdPersona(item.id)
+                               }}
               >
                 Seleccionar
               </Button>
@@ -194,17 +200,7 @@ const column2=[
 const column3=[
     {
         name:'Persona',
-        field:[ {  name:"Nombre",
-                   field:"nombre",
-                },
-                { name:"Apellido_paterno",
-                 field:"apellido_paterno"
-                },
-                {
-                  name:"Apellido_materno",
-                  field:"apellido_materno"
-                }]
-    
+        field:'persona.nombre'
     },
     {
         name: 'Libro',
@@ -291,8 +287,6 @@ const Listar_Persona= () =>{
 const Guardar_Prestamo = () => {
 
 
-
-if(accion=="Guardar"){
     axios
     .post(
       `http://localhost:8081/api/prestamo`, {
@@ -312,8 +306,6 @@ if(accion=="Guardar"){
                   confirmButtonText: 'ok'
                 })
               Listar_Prestamo();
-              //Listar_Libros();
-              //Listar_Persona();
           }
 
       },
@@ -325,7 +317,7 @@ if(accion=="Guardar"){
 
 
   );
- }  
+  
 }
 
 const options = {
@@ -363,13 +355,12 @@ if(props.id===1){
                                 <label>{libro.titulo}</label>
                                 <label>{persona.nombre}</label>
                             </Paper>
+                            <Calendar onChange={setFecha} value={fecha}></Calendar>
                             <Button onClick={()=>{
                                 
-                                setIdPersona(persona.id)
-                                setIdLibro(libro.id)
                                 console.log(id_libro)
                                 console.log(id_persona)
-                                //coloca la fecha puto :3 
+                                console.log(fecha)
                                 Guardar_Prestamo()
                             
                             }}>
