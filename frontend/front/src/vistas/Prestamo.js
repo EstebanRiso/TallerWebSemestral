@@ -165,7 +165,7 @@ useEffect(() => {
 const classes = useStyles();
 
 
-
+/*
 const column1 = [
     
     {
@@ -196,28 +196,20 @@ const column2=[
         field: 'anio'
     }
 ];
-
+*/
 const column3=[
-    {
-        name:'Persona',
-        field:'persona.nombre'
-    },
-    {
-        name: 'Libro',
-        field: [{ name:"Autor",
-                   field:"autor",
-                },
-                { name:"Titulo",
-                 field:"titulo"
-                },
-                {
-                  name:"Año",
-                  field:"anio"
-                }],
-    },
+   
     {
         name: 'Fecha',
         field: 'fecha'
+    },
+    {
+        name:'Persona',
+        field: columns
+    },
+    {
+        name:'libro',
+        field: columns2
     }
 ];
 
@@ -330,7 +322,7 @@ if(props.id===1){
         
                 <Container>
                     <form className={classes.form} noValidate>
-                      <Grid container justify="flex-start">
+                      <Grid container justify="center">
                             <MaterialDatatable
                                 title={"Lista de Libros"}
                                 data={libros}
@@ -348,15 +340,21 @@ if(props.id===1){
             
                         </form>
 
-
+     
                 
-                        <Grid container justify="flex-end">
+                        <Grid container justify="center">
                             <Paper>
                                 <label>{libro.titulo}</label>
                                 <label>{persona.nombre}</label>
                             </Paper>
                             <Calendar onChange={setFecha} value={fecha}></Calendar>
-                            <Button onClick={()=>{
+                        </Grid>  
+                        <Grid container justify="center">
+                            <Button 
+                                 variant="contained"
+                                 color="secondary"
+                                 className="medium"
+                                 onClick={()=>{
                                 
                                 console.log(id_libro)
                                 console.log(id_persona)
