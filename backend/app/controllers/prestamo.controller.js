@@ -4,105 +4,92 @@ const Persona = db.persona;
 const Libro = db.libro;
 const Op = db.Sequelize.Op;
 
+exports.create = (req, res) => {
+  const prestamo = {
+    id_persona_personas: req.body.id_persona_personas,
+    id_libro_libros: req.body.id_libro_libros,
+    fecha: req.body.fecha,
+  };
 
+  //console.log(prestamo.fecha);
 
-exports.create=(req,res)=>{
+  Prestamo.create(prestamo)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(404 || 500).send({
+        message:
+          err.message || "Error al Registrar Prestamo , petición no encontrada",
+      });
+    });
+};
 
+exports.ConsultaTodos = (req, res) => {
+  try {
+    Prestamo.findAll({
+      include: [
+        {
+          model: Persona,
+          attributes: ["nombre", "apellido_paterno", "apellido_materno"],
+        },
+        {
+          model: Libro,
+          attributes: ["autor", "titulo", "anio"],
+        },
+      ],
+    })
+      .then((data) => {
+        const datafinal = [];
 
+        data.map((item) => {
+          datafinal.push({
+            fecha: item.fecha,
+            nombre: item.persona.dataValues.nombre,
+            titulo: item.libro.dataValues.titulo,
+          });
+        })
 
-    const prestamo = {
-        id_persona_personas: req.body.id_persona_personas,
-        id_libro_libros: req.body.id_libro_libros,
-        fecha: req.body.fecha
-      };
-    
-    
-    //console.log(prestamo.fecha);
-
-    Prestamo.create(prestamo)
-    .then(data => {
-        res.send(data);
+        res.send(datafinal);
       })
-      .catch(err => {
-        res.status(404 || 500).send({
+      .catch((err) => {
+        res.status(500).send({
           message:
-            err.message || "Error al Registrar Prestamo , petición no encontrada"
+            err.message || "Some error occurred while retrieving Prestamo.",
         });
       });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 
-}
+exports.ConsultaPersona = (req, res) => {
+  const id = req.params.id;
 
-exports.ConsultaTodos=(req,res)=>
-{
-
-    try{
-        Prestamo.findAll(
+  try {
+    Prestamo.findAll({
+      where: { id_persona_personas: id },
+      include: [
         {
-        include: [{
           model: Persona,
-          attributes: ['nombre','apellido_paterno','apellido_materno']
-    
+          attributes: ["nombre", "apellido_paterno", "apellido_materno"],
         },
         {
           model: Libro,
-          attributes: ['autor','titulo','anio']
-        }
-      ]
-      }
-      ).then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving Prestamo."
-        });
-      });;
-  
-  
-    }catch(error)
-    {
-      res.status(500).send(error)
-    }
-  
-   
-}
-
-
-exports.ConsultaPersona=(req,res)=>
-{
-
-    const id= req.params.id;
-
-    try{
-        Prestamo.findAll({
-          
-        where:{id_persona_personas:id},
-        include: [{
-          model: Persona,
-          attributes: ['nombre','apellido_paterno','apellido_materno'],
+          attributes: ["autor", "libro", "anio"],
         },
-        {
-          model: Libro,
-          attributes: ['autor','libro','anio']
-        }
-      ]
-      }
-      ).then(data => {
+      ],
+    })
+      .then((data) => {
         res.send(data);
       })
-      .catch(err => {
+      .catch((err) => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving Prestamos."
+            err.message || "Some error occurred while retrieving Prestamos.",
         });
-      });;
-  
-  
-    }catch(error)
-    {
-      res.status(500).send(error)
-    }
-  
-   
-}
+      });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};

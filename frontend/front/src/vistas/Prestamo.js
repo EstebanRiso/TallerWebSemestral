@@ -205,11 +205,11 @@ const column3=[
     },
     {
         name:'Persona',
-        field: columns
+        field: "nombre"
     },
     {
         name:'libro',
-        field: columns2
+        field: "titulo"
     }
 ];
 
