@@ -19,6 +19,9 @@ import Swal from 'sweetalert2';
 import Paper from '@material-ui/core/Paper';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { Table } from 'reactstrap';
+import { Row, Column } from 'react-foundation';
+
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -215,6 +218,15 @@ const column3=[
 
 
 
+const column4=[
+
+    {
+        name:'libro',
+        field: "titulo"
+    }
+];
+
+
 const Listar_Prestamo= () =>{
 
   axios
@@ -322,32 +334,47 @@ if(props.id===1){
         
                 <Container>
                     <form className={classes.form} noValidate>
-                      <Grid container justify="center">
+                      <Grid alignItems=" stretch">
                             <MaterialDatatable
                                 title={"Lista de Libros"}
                                 data={libros}
                                 columns={columns}
                                 options={options}
                             />
-
-                            <MaterialDatatable
+                                 <MaterialDatatable
                                 title={"Lista de Personas"}
                                 data={personas}
                                 columns={columns2}
                                 options={options}
                             />
+
                         </Grid>
-            
+
                         </form>
 
      
                 
-                        <Grid container justify="center">
-                            <Paper>
-                                <label>{libro.titulo}</label>
-                                <label>{persona.nombre}</label>
-                            </Paper>
-                            <Calendar onChange={setFecha} value={fecha}></Calendar>
+                        <Grid container justify="center"> 
+
+                        <Table style={{backgroundColor: "lightblue"}}>
+                                <thead>
+                                    <tr>
+                                        <th>Titulo Libro</th>
+                                        <th>Nombre Persona</th>
+                                        <th>Fecha</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><Paper><label className="text-center">{libro.titulo}</label></Paper></td>
+                                        <td><Paper><label className="text-center">{persona.nombre}</label></Paper></td>
+                                        <td><Calendar onChange={setFecha} value={fecha}></Calendar></td>
+                                    </tr>
+
+                                </tbody>
+                            </Table>
+
+                            
                         </Grid>  
                         <Grid container justify="center">
                             <Button 
@@ -381,7 +408,7 @@ if(props.id===1){
            
 
                 <form className={classes.form} noValidate>
-                   <Grid item xs={12} sm={6}>
+                   <Grid  container justify="center" >
                         <MaterialDatatable
                             title={"Lista de Prestamos"}
                             data={data}

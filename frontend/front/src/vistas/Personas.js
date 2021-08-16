@@ -65,6 +65,9 @@ export default function Personas(props){
 
 
 
+
+
+
     const classes = useStyles();
 
 
@@ -354,84 +357,6 @@ export default function Personas(props){
                 </form>
             
         </Container>
-    )
-  }
-  if(props.id===3){
-
-    return(
-        <Container>
-             <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Eliminar Persona
-                </Typography>
-           <form className={classes.form} noValidate>
-
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                value={nombre}
-                                onChange={(evt) => {
-                                    console.log(evt)
-                                    setNombre(evt.target.value)
-                                }}
-                                autoComplete="fname"
-                                name="firstName"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="name"
-                                label="Nombre"
-                                autoFocus
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                value={apellido_paterno}
-                                onChange={(evt) => {
-
-                                    setApellidoP(evt.target.value)
-                                }}
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="lastName"
-                                label="Apellido Paterno"
-                                name="lastName"
-                                autoComplete="lname"
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                value={apellido_materno}
-                                onChange={(evt) => {
-                                    setApellidoM(evt.target.value)
-                                }}
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="lastName"
-                                label="Apellido Materno"
-                                name="lastName"
-                                autoComplete="lname"
-                            />
-                        </Grid>
-                    </Grid>
-                     
-                    <Button
-                        fullWidth
-                        variant="contained"
-                        color="secondary"
-                        className={classes.submit}
-                        onClick={() => Eliminar()}
-                    >
-                        Eliminar
-                    </Button>
-        
-          </form>
-        </Container>
-
     )
   }
 }

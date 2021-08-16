@@ -99,12 +99,10 @@ export default function Tabla() {
                 <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">       
                     <Tab label="Guardar Persona" {...a11yProps(0)} />
                     <Tab label="Listar Personas" {...a11yProps(1)} />
-                    <Tab label="Eliminar Persona" {...a11yProps(2)} />
-                    <Tab label="Guardar Libro" {...a11yProps(3)} />
-                    <Tab label="Listar Libros" {...a11yProps(4)} />
-                    <Tab label="Eliminar Libro" {...a11yProps(5)} />
-                    <Tab label="Generar Prestamos"{...a11yProps(6)}/>
-                    <Tab label="Listar Prestamos"{...a11yProps(7)}/>
+                    <Tab label="Guardar Libro" {...a11yProps(2)} />
+                    <Tab label="Listar Libros" {...a11yProps(3)} />
+                    <Tab label="Generar Prestamos"{...a11yProps(4)}/>
+                    <Tab label="Listar Prestamos"{...a11yProps(5)}/>
                 </Tabs>
             </AppBar>
         
@@ -115,21 +113,15 @@ export default function Tabla() {
                 <Personas id={2}></Personas>                      
             </TabPanel> 
             <TabPanel value={value} index={2}>
-                <Personas id={3}></Personas>
-            </TabPanel>
-            <TabPanel value={value} index={3}>
                 <Libros id={1}></Libros>
             </TabPanel>
-            <TabPanel value={value} index={4}>
+            <TabPanel value={value} index={3}>
                 <Libros id={2}></Libros>
             </TabPanel>
-            <TabPanel value={value} index={5}>
-                <Libros id={3}></Libros>
-            </TabPanel>
-            <TabPanel value={value} index={6}>
+            <TabPanel value={value} index={4}>
                 <Prestamo id={1}></Prestamo>
             </TabPanel>
-            <TabPanel value={value} index={7}>
+            <TabPanel value={value} index={5}>
                 <Prestamo id={2}></Prestamo>
             </TabPanel>
            
